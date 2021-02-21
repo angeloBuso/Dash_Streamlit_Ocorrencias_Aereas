@@ -167,7 +167,7 @@ st.pydeck_chart(pdk.Deck(
             get_fill_color='[255, 255, 255, 255]',
             get_line_color='[255, 255, 255]',
             auto_highlight=True,
-            elevation_scale=1500,
+            elevation_scale=1000,
             # elevation_range=[0, 3000],
             # get_elevation="norm_price",
             pickable=True,
