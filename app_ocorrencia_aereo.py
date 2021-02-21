@@ -111,6 +111,11 @@ if tabela.checkbox("Sim"):
 
     # c. (1) os dados possuem Lat e Lon, logo podemos inserir um mapa com PyDeck
 st.subheader("Mapa de ocorrências")
+
+# Pydeck trabalha com estrutura de Grid Layers sendo cada objeto trabalhado de forma isolada.
+# i . indicamos o ponto incial em que o mapa será aberto, além de informar o nível de zoom;
+# ii. posterior são inseridos os objetos do tipo "layer"
+
 st.pydeck_chart(pdk.Deck(
     initial_view_state=pdk.ViewState(
         latitude=-22.85481,
@@ -143,7 +148,42 @@ st.pydeck_chart(pdk.Deck(
         ),
     ],
 ))
+    # c. (2) Pydeck heatmap
+st.pydeck_chart(pdk.Deck(
+    initial_view_state=pdk.ViewState(
+        latitude=-22.85481,
+        longitude=-43.17896,
+        zoom=3,
+        pitch=50
+    ),
+    layers=[
+        pdk.Layer(
+            'HeatmapLayer',
+            data= df_filtrado,
+            opacity=0.9,
+            disk_resolution=12,
+            radius=30000,
+            get_position='[longitude, latitude]',
+            get_fill_color='[255, 255, 255, 255]',
+            get_line_color='[255, 255, 255]',
+            auto_highlight=True,
+            elevation_scale=1500,
+            # elevation_range=[0, 3000],
+            # get_elevation="norm_price",
+            pickable=True,
+            extruded=True,
+        ),
+        pdk.Layer(
+            'ScatterplotLayer',
+            data = df_filtrado,
+            get_position='[longitude, latitude]',
+            get_color='[255, 255, 255, 30]',
+            get_radius=60000,
+        ),
+    ],
+))
 
-    # c. (2) os dados possuem Lat e Lon, logo podemos inserir um mapa
+    # c. (3) os dados possuem Lat e Lon, logo podemos inserir um mapa
 st.subheader("Local das ocorrências")
 st.map(df_filtrado)
+
