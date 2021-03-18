@@ -75,7 +75,7 @@ def load_data():
 
     return dados
 
-# 1.1 Carregando os dados
+# 1.1 Carregando os dados.
 df = load_data()
 
 # 2. Obtendo uma lista das variáveis unicas das categorias do atributo
