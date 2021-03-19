@@ -111,25 +111,36 @@ df_filtrado = df[(df.data.dt.year == var_slider) & (df.classificacao.isin(var_se
     # f. retornando com os preenchimentos dos Placeholders
 info_sidebar.info("{} ocorrências selecionadas." .format(df_filtrado.shape[0], var_slider))
 
-    # g. complementando informações com os Markdows
-st.sidebar.markdown("""
-    Fonte de dados das ocorrências aeronáuticas:
-     ***Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA)***
-""")
-
-    # h.
+    # g. evolução por ano
 acidentes_por_ano = df.data.dt.year.value_counts().sort_index()
 st.sidebar.subheader("Evolução")
 st.sidebar.bar_chart(acidentes_por_ano, height=150)
+
+    # h. complementando informações com os Markdows
+st.sidebar.markdown("""
+        **Finalidades das aeronaves**
+* `PRIVADA` aeronaves utilizadas para serviços realizados sem remuneração, em benefício dos proprietários ou operadores.
+* `REGULAR` aeronaves utilizadas para serviços de transporte aéreo público, realizado por pessoas jurídicas brasileiras.
+* `INSTRUÇÃO` aeronaves utilizadas apenas na instrução, treinamento e adestramento de voo pelos aeroclubes aprovados pela ANAC.
+* `TÁXI AÉREO` aeronaves utilizadas para serviços de transporte aéreo público não regular de passageiro ou carga, mediante remuneração convencionada entre o usuário e o transportador.
+* `AGRÍCOLA`  aeronaves usadas no fomento ou proteção da agricultura em geral.
+* `EXPERIMENTAL` aeronaves visando à certificação na categoria experimental.   
+    
+    Fonte de dados das ocorrências aeronáuticas:
+     ***Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA)***
+""")
 
 # 3.2 Main -> corpo do dash
 st.title("Visualizando Resultados")
 
     # a. informações interativas com filtros escolhidos
 md_diaria = round(df_filtrado.shape[0]/365,2)
+fatalidade = df_filtrado.fatalidades.sum()
+
 st.markdown(f"""
             ℹ️ Estão sendo exibidas as ocorrências classificadas como **{", ".join(var_selector)}**
             para o ano de **{var_slider}**, o que correspondeu uma média diária de **{md_diaria}** ocorrências.
+            Ao todo teve {fatalidade} fatalidades registradas.
             """)
 
     # b. mostrando os dados filtrados
@@ -177,12 +188,6 @@ if tabela.checkbox("Sim"):
 
     #st.pyplot(fig2)
 
-
-
-st.sidebar.markdown("""
-    Fonte de dados das ocorrências aeronáuticas:
-     ***Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA)***
-""")
 
 # c. (3) os dados possuem Lat e Lon, logo podemos inserir um mapa
 st.subheader("Local das ocorrências")
