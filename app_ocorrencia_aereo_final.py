@@ -70,7 +70,7 @@ def load_data():
     dados['latitude'].fillna(media_lat, inplace=True)
     dados['longitude'].fillna(media_lng, inplace=True)
 
-    # e. filtro dataSet pelas feature selection
+    # e. filtro dataSet pelas feature selection, indexação espera receber uma lista
     dados = dados[list(colunas.values())]
 
     return dados
