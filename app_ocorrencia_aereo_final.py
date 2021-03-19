@@ -139,8 +139,8 @@ fatalidade = df_filtrado.fatalidades.sum()
 
 st.markdown(f"""
             ℹ️ Estão sendo exibidas as ocorrências classificadas como **{", ".join(var_selector)}**
-            para o ano de **{var_slider}**, o que correspondeu uma média diária de **{md_diaria}** ocorrências.
-            Ao todo teve {fatalidade} fatalidades registradas.
+            para o ano de **{var_slider}**, o que correspondeu uma média de **{md_diaria}** ocorrências por dia e
+            foram constatadas {fatalidade} fatalidades nas ocorrências.
             """)
 
     # b. mostrando os dados filtrados
