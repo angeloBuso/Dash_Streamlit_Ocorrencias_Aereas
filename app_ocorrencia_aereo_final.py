@@ -87,7 +87,6 @@ classifier = df.classificacao.unique().tolist()
     # a. Placeholder, designação local (.empty() indica que recebrá alguma informação)
 st.sidebar.header("Parâmetros de Controle")
 info_sidebar = st.sidebar.empty()
-info_sidebar1 = st.sidebar.empty()
 
     # b. filtro 1 - slider ano
 st.sidebar.subheader("Ano")
@@ -111,8 +110,6 @@ df_filtrado = df[(df.data.dt.year == var_slider) & (df.classificacao.isin(var_se
 
     # f. retornando com os preenchimentos dos Placeholders
 info_sidebar.info("{} ocorrências selecionadas." .format(df_filtrado.shape[0], var_slider))
-info_sidebar1.info("{} ocorrências por dia, em média, no ano escolhido." .format(round(df_filtrado.shape[0]/365,2),
-                                                                                 var_slider))
 
     # g. complementando informações com os Markdows
 st.sidebar.markdown("""
@@ -132,7 +129,7 @@ st.title("Visualizando Resultados")
 md_diaria = round(df_filtrado.shape[0]/365,2)
 st.markdown(f"""
             ℹ️ Estão sendo exibidas as ocorrências classificadas como **{", ".join(var_selector)}**
-            para o ano de **{var_slider}**, o que corresponde em média **{md_diaria}** ocorrências por dia.
+            para o ano de **{var_slider}**, o que correspondeu uma média diária de **{md_diaria}** ocorrências.
             """)
 
     # b. mostrando os dados filtrados
@@ -157,6 +154,16 @@ ax1.set_xlabel('')
 ax1.set_title('Percentual de ocorrências por Estados')
 ax1.set_xticklabels(uf_filtrado['index'], rotation= 90)
 
+#fase_filtrado = pd.DataFrame(df_filtrado['fase_operacao'].
+#                        value_counts(normalize=True)).reset_index()
+#fig2, ax2 = plt.subplots()
+#sns.barplot(x=fase_filtrado['index'],
+#            y=fase_filtrado['fase_operacao'], color="#3182bd", ax=ax2)
+#ax2.set_ylabel('')
+#ax2.set_xlabel('')
+#ax2.set_title('Fase operação da aeronave')
+#ax2.set_xticklabels(fase_filtrado['index'], rotation= 90)
+
 if tabela.checkbox("Sim"):
     st.write(df_filtrado)
     st.write('')
@@ -167,6 +174,8 @@ if tabela.checkbox("Sim"):
 
     with estado:
         st.pyplot(fig1)
+
+    #st.pyplot(fig2)
 
 
 
