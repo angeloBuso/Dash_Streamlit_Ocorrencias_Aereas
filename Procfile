@@ -1,0 +1,1 @@
+web: sh setup.sh && streamlit run app_ocorrencia_aereo_final.py
