@@ -85,6 +85,11 @@ classifier = df.classificacao.unique().tolist()
 
 # 3.1 SideBar -> ambiente de controle
     # a. Placeholder, designação local (.empty() indica que recebrá alguma informação)
+st.sidebar.markdown("""
+Desenvolvido por:
+[Angelo Buso](https://github.com/angeloBuso)
+""")
+
 st.sidebar.header("Parâmetros de Controle")
 info_sidebar = st.sidebar.empty()
 
@@ -131,7 +136,11 @@ st.sidebar.markdown("""
 """)
 
 # 3.2 Main -> corpo do dash
-st.title("Visualizando Resultados")
+st.title("Ocorrências Aéreas")
+st.subheader("""
+Presente Dashboard tem por finalidade auxiliar a visualização dos resultados do projeto
+[Investigando os dados de acidentes Aéreos](https://bit.ly/3sitOd0)
+""")
 
     # a. informações interativas com filtros escolhidos
 md_diaria = round(df_filtrado.shape[0]/365,2)
@@ -165,6 +174,26 @@ ax1.set_xlabel('')
 ax1.set_title('Percentual de ocorrências por Estados')
 ax1.set_xticklabels(uf_filtrado['index'], rotation= 90)
 
+aeronave_filtrado = pd.DataFrame(df_filtrado['tipo_veiculo'].
+                        value_counts(normalize=True)).reset_index()
+fig2, ax2 = plt.subplots()
+sns.barplot(x=aeronave_filtrado['index'],
+            y=aeronave_filtrado['tipo_veiculo'], color="#3182bd", ax=ax2)
+ax2.set_ylabel('')
+ax2.set_xlabel('')
+ax2.set_title('Percentual de tipo de aeronave')
+ax2.set_xticklabels(aeronave_filtrado['index'], rotation= 90)
+
+fase_filtrado = pd.DataFrame(df_filtrado['fase_operacao'].
+                        value_counts(normalize=True)).reset_index()
+fig3, ax3 = plt.subplots()
+sns.barplot(x=fase_filtrado['index'],
+            y=fase_filtrado['fase_operacao'], color="#3182bd", ax=ax3)
+ax3.set_ylabel('')
+ax3.set_xlabel('')
+ax3.set_title('Percentual por fase oper de aeronave')
+ax3.set_xticklabels(fase_filtrado['index'], rotation= 90)
+
 #fase_filtrado = pd.DataFrame(df_filtrado['fase_operacao'].
 #                        value_counts(normalize=True)).reset_index()
 #fig2, ax2 = plt.subplots()
@@ -185,6 +214,14 @@ if tabela.checkbox("Sim"):
 
     with estado:
         st.pyplot(fig1)
+
+    st.write('')
+    aeronave, fase = st.beta_columns(2)
+    with aeronave:
+        st.pyplot(fig2)
+
+    with fase:
+        st.pyplot(fig3)
 
     #st.pyplot(fig2)
 
