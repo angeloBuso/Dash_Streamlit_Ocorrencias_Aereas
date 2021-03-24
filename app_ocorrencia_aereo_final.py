@@ -149,7 +149,7 @@ fatalidade = df_filtrado.fatalidades.sum()
 st.markdown(f"""
             ℹ️ Estão sendo exibidas as ocorrências classificadas como **{", ".join(var_selector)}**
             para o ano de **{var_slider}**, o que correspondeu uma média de **{md_diaria}** ocorrências por dia e
-            foram constatadas {fatalidade} fatalidades nas ocorrências.
+            constatou-se {fatalidade} fatalidades nas ocorrências investigadas.
             """)
 
     # b. mostrando os dados filtrados
@@ -272,3 +272,8 @@ st.pydeck_chart(pdk.Deck(
         ),
     ],
 ))
+
+st.markdown("""
+Gostaria de fazer algum comentário?
+basta [clicar aqui](https://github.com/angeloBuso/Dash_Streamlit_Ocorrencias_Aereas/issues)
+""")
